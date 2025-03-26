@@ -15,11 +15,11 @@ provider "linux" {
 }
 
 resource "linux_directory" "resource1" {
-    path = "/tmp/terraform"
+    path = "/tmp/terraform1"
 }
 
 resource "linux_file" "resource2" {
-    path = "/tmp/terraform/unnati.txt"
+    path = "/tmp/terraform1/unnati.txt"
     content = <<-EOF
         hello world
     EOF
