@@ -14,6 +14,13 @@ provider "linux" {
     password = "redhat"
 }
 
-resource "linux_file" "unnatifile" {
-    path = "/tmp/testdir"
+resource "linux_directory" "resource1" {
+    path = "/tmp/terraform"
+}
+
+resource "linux_file" "resource2" {
+    path = "/tmp/terraform/unnati.txt"
+    content = <<-EOF
+        hello world
+    EOF
 }
