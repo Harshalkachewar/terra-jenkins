@@ -8,9 +8,9 @@ terraform {
 }
 
 provider "linux" {
-  host     = "192.168.180.129"
+  host     = "192.168.1.190"
   port     = 22
-  user     = "harshal"
+  user     = "root"
   password = "redhat"
 }
 
@@ -28,8 +28,8 @@ resource "null_resource" "create_directory" {
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
-      host     = "192.168.180.129"
-      user     = "harshal"
+      host     = "192.168.1.190"
+      user     = "root"
       password = "redhat"
     }
 
@@ -46,8 +46,8 @@ resource "null_resource" "create_file" {
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
-      host     = "192.168.180.129"
-      user     = "harshal"
+      host     = "192.168.1.190"
+      user     = "root"
       password = "redhat"
     }
 
