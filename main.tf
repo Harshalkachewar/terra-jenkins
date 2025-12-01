@@ -22,8 +22,16 @@ variable "file_path" {
   default = "/tmp/terraform1/unnati.txt"
 }
 
-resource "null_resource" "create_directory_and_file" {
-  # If you want to re-run when outputs change, add triggers = { ... }
+resource "null_resource" "setup_script" {
+  triggers = {
+    script_md5 = filemd5("scripts/create_dir_and_file.sh")
+  }
+
+  provisioner "file" {
+    source      = "scripts/create_dir_and_file.sh"
+    destination = "/tmp/create_dir_and_file.sh"
+  }
+
   provisioner "remote-exec" {
     connection {
       type     = "ssh"
@@ -33,14 +41,8 @@ resource "null_resource" "create_directory_and_file" {
     }
 
     inline = [
-      "set -euo pipefail",
-      "echo '=== creating directory ==='",
-      "mkdir -p ${var.directory_path}",
-      "echo 'hello world' > ${var.file_path}",
-      "chmod 644 ${var.file_path}",
-      "echo '=== verify ==='",
-      "ls -l ${var.directory_path} || true",
-      "cat ${var.file_path} || true"
+      "chmod +x /tmp/create_dir_and_file.sh",
+      "/tmp/create_dir_and_file.sh ${var.directory_path} ${var.file_path}"
     ]
   }
 }
